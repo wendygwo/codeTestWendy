@@ -30,7 +30,7 @@
 
 <body ng-app='codeTestWendyApp' ng-controller='codeTestWendyController'>
 	<h1 class='text-center'>Welcome to Wendy's code test!</h1>
-	<!-- This part shows up when the user first goes to the page -->
+	<!-- This part shows up when the user first goes to the page and no auth token is available yet-->
 	<div class='instAuth' ng-hide='tokenAvailable()'>
 		<h3 class='text-center'>To begin: click the button below to authorize this app to access your Instagram account</h3>
 		<div class='row'>
@@ -43,30 +43,32 @@
 	<br>
 
 	<!-- This button only shows up once you've clicked to authorize the app to use Instagram -->
-	<div ng-show='tokenAvailable()'>
+
+<!-- 	<div ng-show='tokenAvailable()'>
 		<div class = 'row'>
 			<div class='col-md-4 col-md-offset-4'>
 				<input type='button' value='Click here to see the 30 most recent pictures posted to your feed' id='mainButton' class='btn btn-info center-block'>
 			</div>
 		</div>
 		<br />
-		<div class='row bg-info'>
+		<div class='row bg-info'> -->
 			<!-- Pictures get populated here -->
-			<div class='popular col-md-8 col-md-offset-2'>
+<!-- 			<div class='popular col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1'>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 	<div ng-show='tokenAvailable()'>
 		<div class = 'row'>
 			<div class='col-md-4 col-md-offset-4'>
-				<input type='button' value='Click here to see the 30 most recent pictures posted to your feed - Angular' class='btn btn-info center-block' ng-click='myData()'>
+				<input type='button' value='Click to see most recent photos in to your feed' class='btn btn-info center-block' ng-click='myData()'>
 			</div>
 		</div>
 		<br />
 		<div class='row'>
 			<div class='col-md-8 col-md-offset-2'>
+				<!-- Images are populated here, with the ng-repeat -->
 				<div ng-repeat='currentdata in apiData track by $index' class='blocks'>
 					<a target='_blank' href="{{currentdata.link}}">
 						<img src="{{currentdata.images.standard_resolution.url}}" class='images'>
@@ -116,37 +118,36 @@
 															              }
 															            );
 				responsePromise.success(function(data) {
-				    // do something with the returned JavaScript object
-				    // ( in the "data" parameter ).
-				    	console.log('Went into Angular success function');
-				    	$scope.apiData=data.data;
-			    		console.log($scope.apiData);
+			    // Grab the data returned from call
+		    	console.log('Went into Angular success function');
+		    	$scope.apiData=data.data;
+	    		console.log($scope.apiData);
 				});
 
 			};
 			// This runs when the main button is clicked
-			$('#mainButton').click(function(){
-				console.log('Button clicked');
+		// 	$('#mainButton').click(function(){
+		// 		console.log('Button clicked');
 
-				myToken=$scope.getToken();
-				console.log('myToken = '+myToken);
+		// 		myToken=$scope.getToken();
+		// 		console.log('myToken = '+myToken);
 
-					$.ajax({
-			      type: "GET",
-			      dataType: "jsonp",
-			      cache: false,
-			      url: "https://api.instagram.com/v1/users/self/feed?access_token="+myToken+"&count=30",
-			      success: function(data) {
-			        // placing the images on the page
-			        for (var i = 0; i < 30; i++) {
-			          $(".popular").append("<div class='blocks'><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "' class='images'></img></a></div>");
-			    		}
-			    		$scope.apiData=data.data;
-			    		console.log($scope.apiData);
-			      }
-			    });
-			})
-		});
+		// 			$.ajax({
+		// 	      type: "GET",
+		// 	      dataType: "jsonp",
+		// 	      cache: false,
+		// 	      url: "https://api.instagram.com/v1/users/self/feed?access_token="+myToken+"&count=30",
+		// 	      success: function(data) {
+		// 	        // placing the images on the page
+		// 	        for (var i = 0; i < 30; i++) {
+		// 	          $(".popular").append("<div class='blocks'><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "' class='images'></img></a></div>");
+		// 	    		}
+		// 	    		$scope.apiData=data.data;
+		// 	    		console.log($scope.apiData);
+		// 	      }
+		// 	    });
+		// 	})
+		// });
 	</script>
 
 </body>
