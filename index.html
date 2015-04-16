@@ -28,12 +28,11 @@
 		}
 	</style>
 </head>
-
 <body ng-app='codeTestWendyApp' ng-controller='codeTestWendyController'>
 	<h1 class='text-center'>Welcome to Wendy's code test!</h1>
 	<!-- This part shows up when the user first goes to the page and no auth token is available yet-->
 	<div class='instAuth' ng-hide='tokenAvailable()'>
-		<h3 class='text-center'>To begin: click the button below to authorize this app to access your Instagram account</h3>
+		<h3 class='text-center text-success'>To begin: click the button below to authorize this app to access your Instagram account</h3>
 		<div class='row'>
 			<div class='col-md-4 col-md-offset-4'>
 				<!-- This is the link the user clicks to authorize this app to use their Instagram account-->
@@ -42,23 +41,25 @@
 		</div>
 	</div>
 
-	<!-- This section only shows up once you've clicked the button to authorize the app to use your Instagram account -->
+	<!-- This section shows up once you've clicked the button to authorize the app to use your Instagram account -->
 	<div ng-show='tokenAvailable()'>
 		<!-- Notice to user that they've successfully authorized the app -->
 		<!-- Notice will disappear after time set for id='authNotice' -->
 		<h4 class="text-success text-center" id='authNotice'>You've successfully authorized this app with Instagram! Click the button below to continue</h4>
-		<!-- Button to click to load the most recent photos in your Instagram feed -->
+		<br />
+		<!-- Button to click to load the 30 most recent photos in your Instagram feed -->
 		<div class = 'row'>
-			<div class='col-md-4 col-md-offset-4'>
-				<input type='button' value='Click to see most recent photos in to your feed' class='btn btn-info center-block' ng-click='myData()'>
+			<div class='col-md-6 col-md-offset-3'>
+				<input type='button' value='Click to see the 30 most recent photos in to your feed' class='btn btn-info center-block' ng-click='myData()'>
 			</div>
 		</div>
 		<br />
 		<!-- This is where the images are populated, once the button above is clicked -->
-		<div class='row'>
+		<div class='row bg-info'>
 			<div class='col-md-8 col-md-offset-2'>
 				<!-- Images are populated here, with the ng-repeat -->
 				<div ng-repeat='currentdata in apiData track by $index' class='blocks'>
+					<!-- Make the images that are displayed clickable -->
 					<a target='_blank' href="{{currentdata.link}}">
 						<img src="{{currentdata.images.standard_resolution.url}}" class='images'>
 						</img>
@@ -77,41 +78,42 @@
 		.controller('codeTestWendyController', function($scope, $http){
 			var docUrl;
 			var token_index;
-
 			// Set a timeout for the successful Instagram authorization notice
 			$(document).ready( function() {
         $('#authNotice').delay(5000).fadeOut();
       });
-
 			// Check to see if token available
 			$scope.tokenAvailable = function(){
+				// Get URL of current page
 				docUrl = document.URL;
+				// Find index of access token string
 				token_index = docUrl.indexOf('access_token=');
+				// IndexOf will return -1 if the string isn't found, in which case we know the token isn't available in the URL
 				if (token_index == -1){
 					return false;
 				} else {
 					return true;
 				}
 			};
-
 			// Get the token
 			$scope.getToken = function(){
 				// Get URL of current page
 				docUrl = document.URL;
-				// Find index of access token string 
+				// Find index of access token string
 				token_index = docUrl.indexOf('access_token=');
+				// Get the token by slicing the URL of the current page
 				var access_token = docUrl.slice(token_index+13, docUrl.length);
-				console.log('The access token is: ' + access_token);
 				return access_token
 			};
 
 			// Gets the 30 most recent images from Instagram feed of person who authorized the app
+			// The number can be changed from 30, by changing the 'count' in the params in the jsonp parameters hash
 			$scope.myData=function(){
 				// Get token to be used with API call
 				myToken=$scope.getToken();
 				// API call URL
 				var url = 'https://api.instagram.com/v1/users/self/feed?access_token='+myToken+'&callback=JSON_CALLBACK';
-				// API call here
+				// API call happens here
 				var responsePromise = $http.jsonp( url,
 															             {  params : {
 															                   count : "30"
