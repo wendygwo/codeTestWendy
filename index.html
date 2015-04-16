@@ -33,6 +33,9 @@
 	{
 		var x = document.URL;
 		console.log('The URL is: ' + x);
+		var token_index = x.indexOf('access_token=');
+		var access_token = x.slice(token_index+13, -1);
+		console.log('The access token is: ' + access_token);
 	}
 	$('#mainButton').click(function(){
 		console.log('Button clicked');
