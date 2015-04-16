@@ -21,8 +21,9 @@
 			float: left;
 			margin: 15px auto;
 		}
-		.instAuthHide{
-			color: gray;
+		.images{
+			width: 100%;
+			border-radius: 30px;
 		}
 	</style>
 </head>
@@ -113,7 +114,7 @@
 			      success: function(data) {
 			        // placing the images on the page
 			        for (var i = 0; i < 10; i++) {
-			          $(".popular").append("<div class='blocks'><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "'></img></a></div>");
+			          $(".popular").append("<div class='blocks'><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "' class='images'></img></a></div>");
 			    		}
 			    		$scope.apiData=data.data;
 			    		console.log($scope.apiData);
