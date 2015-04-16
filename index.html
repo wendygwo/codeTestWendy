@@ -116,6 +116,7 @@
 			          $(".popular").append("<div><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "' class='blocks'></img></a></div>");
 			    		}
 			    		$scope.apiData=data.data;
+			    		console.log($scope.apiData);
 			      }
 			    });
 			})
