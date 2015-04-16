@@ -69,8 +69,6 @@
 			<h3 class='text-center'>Ng-repeat The 10 most recent pictures posted to your feed</h3>
 			<div class='col-md-8 col-md-offset-1'>
 				<div ng-repeat='currentdata in apiData track by $index'>
-				currentdata: {{currentdata}} <br/>
-				Image: {{currentdata.images.standard_resolution.url}} <br />
 					<a target='_blank' href="{{currentdata.link}}">
 						<img src="{{currentdata.images.standard_resolution.url}}" class='blocks'>
 						</img>
