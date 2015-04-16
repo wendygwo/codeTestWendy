@@ -58,10 +58,12 @@
 			<h3 class='text-center'>Ng-repeat The 10 most recent pictures posted to your feed</h3>
 			<div class='col-md-8 col-md-offset-1'>
 				<div ng-repeat='currentdata in apiData track by $index'>
-					<a target='_blank' href="{{currentdata.link}}">
+				Link: {{currentdata.link}} <br/>
+				Image: {{currentdata.images.standard_resolution.url}} <br />
+<!-- 					<a target='_blank' href="{{currentdata.link}}">
 						<img src="{{currentdata.images.standard_resolution.url}}" class='blocks'>
 						</img>
-					</a>
+					</a> -->
 				</div>
 			</div>
 		</div>
@@ -73,32 +75,30 @@
 		.controller('codeTestWendyController', function($scope){
 			var docUrl
 			var token_index
+
+			// Check to see if token available
 			$scope.tokenAvailable = function(){
 				docUrl = document.URL;
-				console.log('The URL in tokenAvailable() is: ' + docUrl);
 				token_index = docUrl.indexOf('access_token=');
-				console.log('access_token_index_tokenAvailable=' + token_index);
 				if (token_index == -1){
 					return false;
 				} else {
 					return true;
 				}
 			};
+
+			// Get the token
 			$scope.getToken = function(){
+				// Get URL of current page
 				docUrl = document.URL;
-				console.log('The URL in getToken() is: ' + docUrl);
 				// Find index of access token string 
 				token_index = docUrl.indexOf('access_token=');
-				console.log('access_token_index=' + token_index);
-				// if (token_index == -1){
-				// 	console.log('No access token found');
-				// 	return 'No token available. Please authorize this page to use Instagram.'
-				// } else {
-					var access_token = docUrl.slice(token_index+13, docUrl.length);
-					console.log('The access token is: ' + access_token);
-					return access_token
-				// }
+				var access_token = docUrl.slice(token_index+13, docUrl.length);
+				console.log('The access token is: ' + access_token);
+				return access_token
 			};
+
+			// This runs when the main button is clicked
 			$('#mainButton').click(function(){
 				console.log('Button clicked');
 
