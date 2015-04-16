@@ -45,12 +45,13 @@
 	<div ng-show='tokenAvailable()'>
 		<!-- Notice to user that they've successfully authorized the app -->
 		<!-- Notice will disappear after time set for id='authNotice' -->
+		<br />
 		<h4 class="text-success text-center" id='authNotice'>You've successfully authorized this app with Instagram! Click the button below to continue</h4>
 		<br />
 		<!-- Button to click to load the 30 most recent photos in your Instagram feed -->
 		<div class = 'row'>
 			<div class='col-md-6 col-md-offset-3'>
-				<input type='button' value='Click to see the 30 most recent photos in to your feed' class='btn btn-info center-block' ng-click='myData()'>
+				<input type='button' value='Click to see the 30 most recent photos in your feed' class='btn btn-info center-block' ng-click='myData()'>
 			</div>
 		</div>
 		<br />
