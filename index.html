@@ -66,11 +66,10 @@
 		</div>
 		<br />
 		<div class='row'>
-			<h3 class='text-center'>Ng-repeat The 10 most recent pictures posted to your feed</h3>
-			<div class='col-md-8 col-md-offset-1'>
+			<div class='col-md-8 col-md-offset-2'>
 				<div ng-repeat='currentdata in apiData track by $index'>
 					<a target='_blank' href="{{currentdata.link}}">
-						<img src="{{currentdata.images.standard_resolution.url}}" class='blocks'>
+						<img src="{{currentdata.images.standard_resolution.url}}" class='images'>
 						</img>
 					</a>
 				</div>
@@ -110,11 +109,11 @@
 				console.log('Ng-click button clicked');
 				myToken=$scope.getToken();
 				var url = 'https://api.instagram.com/v1/users/self/feed?access_token='+myToken+'&callback=JSON_CALLBACK';
-				var responsePromise = $http.jsonp( url//,
-				// 											             {  params : {
-				// 											                   count : "30"
-				// 											                }
-				// 											              }
+				var responsePromise = $http.jsonp( url,
+															             {  params : {
+															                   count : "30"
+															                }
+															              }
 															            );
 				responsePromise.success(function(data) {
 				    // do something with the returned JavaScript object
