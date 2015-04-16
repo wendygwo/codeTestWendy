@@ -20,11 +20,11 @@
 <body ng-app='codeTestWendyApp' ng-controller='codeTestWendyController'>
 <!-- http://wendygwo.github.io/codeTestWendy/#access_token=261156197.7f7b1d5.9710e2fa84914f08b307504bbf0743cb -->
 
-	<div class='instAuth'>
+	<div class='instAuth' ng-hide='tokenAvailable()'>
 		<a href='https://instagram.com/oauth/authorize/?client_id=7f7b1d50ce8f4ca28308d7322078d5d0&redirect_uri=http://wendygwo.github.io/codeTestWendy/&response_type=token'>Click to authorize Instagram</a>
 	</div>
 	<br>
-	<input type='button' value='Click here to fill with pictures from your feed' id='mainButton'>
+	<input type='button' value='Click here to fill with pictures from your feed' id='mainButton' ng-show='tokenAvailable()'>
 	<h1>Pictures from my feed</h1>
 	<div class="popular">
 	</div>
@@ -35,12 +35,24 @@
 		angular.module('codeTestWendyApp', [])
 
 		.controller('codeTestWendyController', function($scope){
-			
+			var docUrl
+			var token_index
+			$scope.tokenAvailable = function(){
+				docUrl = document.URL;
+				console.log('The URL in tokenAvailable() is: ' + docUrl);
+				token_index = docUrl.indexOf('access_token=');
+				console.log('access_token_index_tokenAvailable=' + token_index);
+				if (token_index == -1){
+					return false;
+				} else {
+					return true;
+				}
+			};
 			$scope.getToken = function(){
-				var docUrl = document.URL;
-				console.log('The URL is: ' + docUrl);
-				// Find index of access token returned from getting 
-				var token_index = docUrl.indexOf('access_token=');
+				docUrl = document.URL;
+				console.log('The URL in getToken() is: ' + docUrl);
+				// Find index of access token string 
+				token_index = docUrl.indexOf('access_token=');
 				console.log('access_token_index=' + token_index);
 				if (token_index == -1){
 					console.log('No access token found');
@@ -50,7 +62,7 @@
 					console.log('The access token is: ' + access_token);
 					return access_token
 				}
-			}
+			};
 			$('#mainButton').click(function(){
 				console.log('Button clicked');
 
