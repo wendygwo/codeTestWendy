@@ -112,15 +112,16 @@
 				console.log('Ng-click button clicked');
 				myToken=$scope.getToken();
 				var url = 'https://api.instagram.com/v1/users/self/feed?access_token='+myToken;
-				var responsePromise = $http.jsonp( url,
-															             {  params : {
-															                   count : "30"
-															                }
-															              }
+				var responsePromise = $http.jsonp( url//,
+				// 											             {  params : {
+				// 											                   count : "30"
+				// 											                }
+				// 											              }
 															            );
 				responsePromise.success(function(data) {
 				    // do something with the returned JavaScript object
 				    // ( in the "data" parameter ).
+				    	console.log('Went into Angular success function')
 				    	$scope.apiData=data.data;
 			    		console.log($scope.apiData);
 				});
