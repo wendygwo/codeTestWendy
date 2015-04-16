@@ -121,12 +121,12 @@
 				responsePromise.success(function(data) {
 				    // do something with the returned JavaScript object
 				    // ( in the "data" parameter ).
-				    	console.log('Went into Angular success function')
+				    	console.log('Went into Angular success function');
 				    	$scope.apiData=data.data;
 			    		console.log($scope.apiData);
 				});
 
-			}
+			};
 			// This runs when the main button is clicked
 			$('#mainButton').click(function(){
 				console.log('Button clicked');
