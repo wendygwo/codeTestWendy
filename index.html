@@ -50,10 +50,10 @@
 			</div>
 		</div>
 		<div class='row'>
-			<h3 class='text-center'>The 10 most recent pictures posted to your feed</h3>
-			<div class='col-md-8 col-md-offset-1'>
-				<div class="popular">
-				</div>
+			<h3 class='text-center'>The 12 most recent pictures posted to your feed</h3>
+			<div class='popular col-md-8 col-md-offset-1'>
+<!-- 				<div class="popular">
+				</div> -->
 			</div>
 		</div>
 		<!-- <div class='row'>
@@ -113,7 +113,7 @@
 			      url: "https://api.instagram.com/v1/users/self/feed?access_token="+myToken,
 			      success: function(data) {
 			        // placing the images on the page
-			        for (var i = 0; i < 10; i++) {
+			        for (var i = 0; i < 12; i++) {
 			          $(".popular").append("<div class='blocks'><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "' class='images'></img></a></div>");
 			    		}
 			    		$scope.apiData=data.data;
