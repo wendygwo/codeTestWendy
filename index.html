@@ -42,7 +42,7 @@
 				// Find index of access token returned from getting 
 				var token_index = docUrl.indexOf('access_token=');
 				console.log('access_token_index=' + token_index);
-				if (token_index = -1){
+				if (token_index == -1){
 					console.log('No access token found');
 					return 'No token available. Please authorize this page to use Instagram.'
 				} else {
