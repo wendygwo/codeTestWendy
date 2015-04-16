@@ -15,9 +15,10 @@
 	<!-- Styling -->
 	<style>
 		.blocks{
-			width: 500px;
-			border: 2px solid blue;
-			/*float: left;*/
+			width: 31%;
+			border: 2px solid gray;
+			border-radius: 30px;
+			float: left;
 			margin: 15px auto;
 		}
 		.instAuthHide{
@@ -112,7 +113,7 @@
 			      success: function(data) {
 			        // placing the images on the page
 			        for (var i = 0; i < 10; i++) {
-			          $(".popular").append("<div><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "' class='blocks'></img></a></div>");
+			          $(".popular").append("<div class='blocks'><a target='_blank' href='" + data.data[i].link + "'><img src='" + data.data[i].images.standard_resolution.url + "'></img></a></div>");
 			    		}
 			    		$scope.apiData=data.data;
 			    		console.log($scope.apiData);
